@@ -2,7 +2,15 @@
 
 1.
     Установка зависимотей:
-    >poetry install
 
-2. Установка pre-commit хуков:
-    >poetry run pre-commit install
+    Linux:
+
+        python3 -m pip install pre-commit
+
+    Windows:
+
+        py -m pip install pre-commit
+
+2. Установка pre-commit хуков и venv:
+
+        make init

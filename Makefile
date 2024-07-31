@@ -1,5 +1,6 @@
-.PHONY: venv init
+.PHONY: init
 
 
 init:
-	poetry install
+	POETRY_VIRTUALENVS_IN_PROJECT=true env -u VIRTUAL_ENV poetry install --no-root
+	pre-commit install

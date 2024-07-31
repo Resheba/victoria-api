@@ -1,5 +1,32 @@
 {
     "editor.rulers": [
         100
-    ]
+    ],
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.autoSave": "onFocusChange",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.associations": {
+        ".env.*": "properties",
+        ".secrets.*": "properties",
+    },
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "mypy.dmypyExecutable": "${workspaceFolder}/.venv/Scripts/dmypy.exe",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "sw-sonarqube",
+        "projectKey": "getdocs-svc-pmi-generate"
+    },
 }

@@ -44,10 +44,3 @@ repos:
       types_or: [python, pyi]
       require_serial: true
       pass_filenames: false
-- repo: local
-  hooks:
-    - id: pytest
-      name: pytest
-      entry: poetry run pytest
-      language: system
-      types_or: [python, pyi]

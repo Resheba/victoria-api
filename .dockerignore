@@ -1,0 +1,10 @@
+__pycache__
+Makefile
+dev-requirements.txt
+.pre-commit-config.yaml
+.vscode
+.git
+.ruff_cache
+.pytest_cache
+.mypy_cache
+.venv

@@ -4,8 +4,10 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
+WORKDIR /code
+
 COPY . .
 
 EXPOSE 80
 
-CMD ["src/docker/app.sh"]
+CMD ["docker/app.sh"]

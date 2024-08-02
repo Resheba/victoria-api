@@ -1,6 +1,6 @@
 import asyncio
 from collections import abc
-from functools import _Wrapped, wraps
+from functools import wraps
 from typing import Any, cast
 
 from pydantic import BaseModel
@@ -28,12 +28,7 @@ class SerializatorDTO:
     def __call__(
         self,
         func: abc.Callable[..., Any],
-    ) -> _Wrapped[
-        ...,
-        Any,
-        ...,
-        abc.Coroutine[Any, Any, abc.Sequence[BaseModel] | BaseModel | None],
-    ]:
+    ) -> abc.Callable[..., abc.Coroutine[Any, Any, abc.Sequence[BaseModel] | BaseModel | None]]:
         @wraps(func)
         async def wrapper(*args: Any, **kwargs: Any) -> abc.Sequence[BaseModel] | BaseModel | None:
             if asyncio.iscoroutinefunction(func):

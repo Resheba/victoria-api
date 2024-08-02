@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from loguru import logger
 
 from .core import BaseHTTPError, base_exception_handler
-from .routers import project_router
+from .routers import group_router, project_router, user_router
 
 # from src.database import db_manager
 
@@ -23,5 +23,8 @@ def app() -> FastAPI:
         exception_handlers={BaseHTTPError: base_exception_handler},
     )
     app.include_router(project_router)
+    app.include_router(user_router)
+    app.include_router(group_router)
+    app.state.project_list = []
 
     return app

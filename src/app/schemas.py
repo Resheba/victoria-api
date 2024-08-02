@@ -6,6 +6,10 @@ class User(BaseModel):
     tg_teg: str = Field(max_length=32)
 
 
+class AddUser(BaseModel):
+    tg_teg: str = Field(max_length=32)
+
+
 class Project(BaseModel):
     id: int
     name: str = Field(max_length=20)
@@ -24,6 +28,16 @@ class UpdateProject(BaseModel):
 
 class Group(BaseModel):
     id: int
+    prject_id: int
+    name: str = Field(max_length=20)
+
+
+class AddGroup(BaseModel):
+    name: str = Field(max_length=20)
+    prject_id: int
+
+
+class UpdateGroup(BaseModel):
     name: str = Field(max_length=20)
 
 
@@ -42,3 +56,5 @@ class Issue(BaseModel):
 
 
 project_list: list[Project] = []
+user_list: list[User] = []
+group_list: list[Group] = []

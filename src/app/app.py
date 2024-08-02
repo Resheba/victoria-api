@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from loguru import logger
 
-from .core import base_exception_handler
+from .core import BaseHTTPError
 from .routers import group_router, issue_router, project_router, step_router, user_router
 
 # from src.database import db_manager
@@ -20,7 +20,7 @@ def app() -> FastAPI:
 
     app: FastAPI = FastAPI(
         lifespan=lifespan,
-        exception_handlers={Exception: base_exception_handler},
+        exception_handlers={Exception: BaseHTTPError.base_exception_handler},
     )
     app.include_router(project_router)
     app.include_router(user_router)

@@ -47,14 +47,35 @@ class Step(BaseModel):
     group_id: int
 
 
+class AddStep(BaseModel):
+    name: str = Field(max_length=20)
+    group_id: int
+
+
+class UpdateStep(BaseModel):
+    name: str = Field(max_length=20)
+
+
 class Issue(BaseModel):
     id: int
     name: str = Field(max_length=20)
     step_id: int
     user_id: int
     priority: str = Field(max_length=1)
+    description: str | None = None
 
 
-project_list: list[Project] = []
-user_list: list[User] = []
-group_list: list[Group] = []
+class AddIssue(BaseModel):
+    name: str = Field(max_length=20)
+    step_id: int
+    user_id: int
+    priority: str = Field(max_length=1)
+    description: str | None = None
+
+
+class UpdateIssue(BaseModel):
+    name: str = Field(max_length=20)
+    step_id: int
+    user_id: int
+    priority: str = Field(max_length=1)
+    description: str | None = None

@@ -4,8 +4,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from loguru import logger
 
-from .core import BaseHTTPError, base_exception_handler
-from .routers import group_router, project_router, user_router
+from .core import base_exception_handler
+from .routers import group_router, issue_router, project_router, step_router, user_router
 
 # from src.database import db_manager
 
@@ -20,11 +20,21 @@ def app() -> FastAPI:
 
     app: FastAPI = FastAPI(
         lifespan=lifespan,
-        exception_handlers={BaseHTTPError: base_exception_handler},
+        exception_handlers={Exception: base_exception_handler},
     )
     app.include_router(project_router)
     app.include_router(user_router)
     app.include_router(group_router)
-    app.state.project_list = []
+    app.include_router(step_router)
+    app.include_router(issue_router)
+
+    for state_var in (
+        "project_list",
+        "user_list",
+        "group_list",
+        "step_list",
+        "issue_list",
+    ):
+        setattr(app.state, state_var, [])
 
     return app

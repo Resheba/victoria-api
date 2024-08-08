@@ -23,6 +23,8 @@ api_build:
     - docker push $IMAGE
 
 api_tests:
+  tags:
+    - dev
   stage: tests
   image: python:3.11.9-slim
   script:

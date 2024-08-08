@@ -8,8 +8,6 @@ variables:
   IMAGE: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
 
 before_script:
-  - curl -sSL https://install.python-poetry.org | python3 -
-  - export PATH="$HOME/.local/bin:$PATH"
   - echo $CI_JOB_TOKEN | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   
 ruff_test:
@@ -17,6 +15,8 @@ ruff_test:
     - dev
   stage: tests
   before_script:
+    - curl -sSL https://install.python-poetry.org | python3 -
+    - export PATH="$HOME/.local/bin:$PATH"
     - poetry install
   script:
     - poetry run ruff check
@@ -28,6 +28,8 @@ mypy_test:
   before_script:
     - poetry install
   script:
+    - curl -sSL https://install.python-poetry.org | python3 -
+    - export PATH="$HOME/.local/bin:$PATH"
     - poetry run mypy
 
 pytest_test:
@@ -37,6 +39,8 @@ pytest_test:
   before_script:
     - poetry install
   script:
+    - curl -sSL https://install.python-poetry.org | python3 -
+    - export PATH="$HOME/.local/bin:$PATH"
     - poetry run pytest
 
 api_build:

@@ -27,8 +27,8 @@ api_tests:
     - dev
   stage: tests
   image: python:3.11.9-slim
-  # services:
-  #   - python:3.11.9-slim
+  services:
+    - python:3.11.9-slim
   before_script:
     - python3.11 --version
     - python3.11 -m pip install --upgrade pip

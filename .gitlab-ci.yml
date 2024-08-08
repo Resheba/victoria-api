@@ -27,8 +27,8 @@ api_tests:
     - dev
   stage: tests
   image: python:3.11.9-slim
-  # services:
-  #   - python:3.11.9-slim
+  services:
+    - python:3.11.9-slim
   before_script:
     - curl -sSL https://install.python-poetry.org | python3 -
     - export PATH="$HOME/.local/bin:$PATH"

@@ -26,17 +26,13 @@ api_tests:
   tags:
     - dev
   stage: tests
-  image: python:3.11.9-slim
-  services:
-    - python:3.11.9-slim
   before_script:
-    - python3.11 --version
-    - python3.11 -m pip install --upgrade pip
-    - python3.11 -m pip install -r requirements.txt
-    - python3.11 -m pip install -r dev-requirements.txt
+    - curl -sSL https://install.python-poetry.org | python3 -
+    - export PATH="$HOME/.local/bin:$PATH"
+    - poetry --version
+    - poetry install
   script:
-    # - python3 < <(curl -s https://bootstrap.pypa.io/get-pip.py)
-    - python3.11 -m pytest
+    - poetry run pytest
 
 deploy_trigger:
   stage: trigger

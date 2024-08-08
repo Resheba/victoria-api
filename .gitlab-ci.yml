@@ -9,19 +9,7 @@ variables:
 
 before_script:
   - echo $CI_JOB_TOKEN | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-
-api_build:
-  tags:
-    - dev
-  stage: build
-  image: docker:26.0.0
-  services:
-    - docker:26.0.0-dind
-  script:
-    - docker build -t $CI_PROJECT_NAMESPACE -f Dockerfile .
-    - docker tag $CI_PROJECT_NAMESPACE $IMAGE
-    - docker push $IMAGE
-
+  
 api_tests:
   tags:
     - dev
@@ -34,6 +22,18 @@ api_tests:
     - poetry run ruff check
     - poetry run mypy
     - poetry run pytest
+
+api_build:
+  tags:
+    - dev
+  stage: build
+  image: docker:26.0.0
+  services:
+    - docker:26.0.0-dind
+  script:
+    - docker build -t $CI_PROJECT_NAMESPACE -f Dockerfile .
+    - docker tag $CI_PROJECT_NAMESPACE $IMAGE
+    - docker push $IMAGE
 
 deploy_trigger:
   stage: trigger

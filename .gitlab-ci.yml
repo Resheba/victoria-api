@@ -28,8 +28,8 @@ api_tests:
   stage: tests
   image: python:3.11.9-slim
   script:
-    - pip install -r requirements.txt
-    - pip install -r dev.requirements.txt
+    - python -m pip install -r requirements.txt
+    - python -m pip install -r dev.requirements.txt
     - pytest
 
 deploy_trigger:

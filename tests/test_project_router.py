@@ -25,7 +25,7 @@ class TestProjectRouter(PrepareTest):
 
     @pytest.mark.usefixtures("_project_pull")
     def test_get_project(self, client: TestClient) -> None:
-        response = client.get("/project/get_projects")
+        response = client.get("/project")
         assert response.status_code == TestProjectRouter.expected_status_code
         assert (
             response.json().get("data")
@@ -37,7 +37,7 @@ class TestProjectRouter(PrepareTest):
     @staticmethod
     def test_add_project(client: TestClient) -> None:
         response = client.post(
-            "/project/add_project",
+            "/project",
             json=TestProjectRouter.test_add_project_data.model_dump(),
         )
         assert response.status_code == TestProjectRouter.expected_status_code

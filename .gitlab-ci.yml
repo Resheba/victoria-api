@@ -28,10 +28,10 @@ api_tests:
   stage: tests
   image: python:3.11.9-slim
   script:
-    - python < <(curl -s https://bootstrap.pypa.io/get-pip.py)
-    - python -m pip install -r requirements.txt
-    - python -m pip install -r dev-requirements.txt
-    - python -m pytest
+    - python3 < <(curl -s https://bootstrap.pypa.io/get-pip.py)
+    - python3 -m pip install -r requirements.txt
+    - python3 -m pip install -r dev-requirements.txt
+    - python3 -m pytest
 
 deploy_trigger:
   stage: trigger

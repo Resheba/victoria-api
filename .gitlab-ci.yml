@@ -31,7 +31,7 @@ api_tests:
     - python < <(curl -s https://bootstrap.pypa.io/get-pip.py)
     - python -m pip install -r requirements.txt
     - python -m pip install -r dev-requirements.txt
-    - pytest
+    - python -m pytest
 
 deploy_trigger:
   stage: trigger

@@ -9,7 +9,6 @@ variables:
 
 before_script:
   - curl -sSL https://install.python-poetry.org | python3 -
-  - export PATH="$HOME/.local/bin:$PATH"
   - echo $CI_JOB_TOKEN | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   
 ruff_test:
@@ -17,6 +16,7 @@ ruff_test:
     - dev
   stage: tests
   before_script:
+    - export PATH="$HOME/.local/bin:$PATH"
     - poetry install
   script:
     - poetry run ruff check
@@ -26,6 +26,7 @@ mypy_test:
     - dev
   stage: tests
   before_script:
+    - export PATH="$HOME/.local/bin:$PATH"
     - poetry install
   script:
     - poetry run mypy
@@ -35,6 +36,7 @@ pytest_test:
     - dev
   stage: tests
   before_script:
+    - export PATH="$HOME/.local/bin:$PATH"
     - poetry install
   script:
     - poetry run pytest

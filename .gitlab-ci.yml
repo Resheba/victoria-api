@@ -50,7 +50,7 @@ api_build:
     - docker:26.0.0-dind
   script:
     - git status
-    - git remote set-url origin "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+    - git remote set-url origin "https://gitlab-ci-token:${PERSONAL_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
     - python -c "from pathlib import Path; from src import __version__; Path('src/__init__.py').write_text(f'__version__ = {__version__[:2] + (__version__[2] + 1,)}\n')"
     - git commit -am "Bump version" --author="dev <dev@hochnadel.ru>"
     - git push origin main -o ci.skip

@@ -10,7 +10,7 @@ variables:
 before_script:
   - curl -sSL https://install.python-poetry.org | python3 -
   - echo $CI_JOB_TOKEN | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
-  
+
 ruff_test:
   tags:
     - dev
@@ -49,6 +49,8 @@ api_build:
   services:
     - docker:26.0.0-dind
   script:
+    - make increase-patch
+    - git commit -am "Bump version"
     - docker build -t $CI_PROJECT_NAMESPACE -f Dockerfile .
     - docker tag $CI_PROJECT_NAMESPACE $IMAGE
     - docker push $IMAGE

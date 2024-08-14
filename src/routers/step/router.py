@@ -1,13 +1,28 @@
 from fastapi import APIRouter, Request
 
-from src.app.core import BaseHTTPError, BaseResponse
-from src.app.schemas import AddStep, Step, UpdateStep
+from src.core import BaseHTTPError, BaseResponse
+
+from .schemas import AddStep, Step, UpdateStep
 
 router = APIRouter(
     prefix="/step",
-    tags=["step"],
+    tags=["Step"],
     responses={404: {"description": "Not found"}},
 )
+
+
+@router.get(
+    "/{group_id}",
+    response_model=BaseResponse[Step],
+    description="Get step by id",
+    responses={404: {"description": "Group not found"}},
+)
+async def get_steps(group_id: int, request: Request) -> BaseResponse[Step]:
+    for step in request.app.state.step_list:
+        if step.group_id == group_id:
+            return BaseResponse(status="success", data=step)
+
+    raise BaseHTTPError(status_code=404, msg="Group not found")
 
 
 @router.post(
@@ -21,20 +36,6 @@ async def add_step(data: AddStep, request: Request) -> BaseResponse[Step]:
         step: Step = Step(id=len(request.app.state.step_list) + 1, **data.model_dump())
         request.app.state.step_list.append(step)
         return BaseResponse(status="success", data=step)
-
-    raise BaseHTTPError(status_code=404, msg="Group not found")
-
-
-@router.get(
-    "/{group_id}",
-    response_model=BaseResponse[Step],
-    description="Get step by id",
-    responses={404: {"description": "Group not found"}},
-)
-async def get_steps(group_id: int, request: Request) -> BaseResponse[Step]:
-    for step in request.app.state.step_list:
-        if step.group_id == group_id:
-            return BaseResponse(status="success", data=step)
 
     raise BaseHTTPError(status_code=404, msg="Group not found")
 

@@ -49,9 +49,9 @@ api_build:
   services:
     - docker:26.0.0-dind
   script:
-    - python -c "from pathlib import Path; from src import __version__; Path('src/__init__.py').write_text(f'__version__ = {__version__[:2] + (__version__[2] + 1,)}\n')"
     - git status
-    - git checkout main
+    - git remote set-url origin $CI_REPOSITORY_URL
+    - python -c "from pathlib import Path; from src import __version__; Path('src/__init__.py').write_text(f'__version__ = {__version__[:2] + (__version__[2] + 1,)}\n')"
     - git commit -am "Bump version" --author="dev <dev@hochnadel.ru>"
     - git push origin main
     - docker build -t $CI_PROJECT_NAMESPACE -f Dockerfile .

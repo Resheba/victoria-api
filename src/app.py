@@ -28,6 +28,7 @@ def app() -> FastAPI:
         lifespan=lifespan,
         exception_handlers={Exception: BaseHTTPError.base_exception_handler},
     )
+
     v1_router: APIRouter = APIRouter(prefix="/v1")
     v1_router.include_router(project_router)
     v1_router.include_router(user_router)

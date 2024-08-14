@@ -1,26 +1,14 @@
 from fastapi import APIRouter, Request
 
-from src.app.core import BaseHTTPError, BaseResponse
-from src.app.schemas import AddProject, Project, UpdateProject
+from src.core import BaseHTTPError, BaseResponse
+
+from .schemas import AddProject, Project, UpdateProject
 
 router = APIRouter(
     prefix="/project",
-    tags=["project"],
+    tags=["Project"],
     responses={404: {"description": "Not found"}},
 )
-
-
-@router.post(
-    "",
-    response_model=BaseResponse[Project],
-    description="Add new project",
-    responses={404: {"description": "Project not found"}},
-)
-async def add_project(data: AddProject, request: Request) -> BaseResponse[Project]:
-    project: Project = Project(id=len(request.app.state.project_list) + 1, **data.model_dump())
-    request.app.state.project_list.append(project)
-
-    return BaseResponse(status="success", data=project)
 
 
 @router.get(
@@ -34,6 +22,19 @@ async def get_projects(request: Request) -> BaseResponse[list[Project]]:
         status="success",
         data=request.app.state.project_list,
     )
+
+
+@router.post(
+    "",
+    response_model=BaseResponse[Project],
+    description="Add new project",
+    responses={404: {"description": "Project not found"}},
+)
+async def add_project(data: AddProject, request: Request) -> BaseResponse[Project]:
+    project: Project = Project(id=len(request.app.state.project_list) + 1, **data.model_dump())
+    request.app.state.project_list.append(project)
+
+    return BaseResponse(status="success", data=project)
 
 
 @router.patch(

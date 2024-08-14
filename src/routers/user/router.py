@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Request
 
-from src.app.core import BaseHTTPError, BaseResponse
-from src.app.schemas import AddUser, User
+from src.core import BaseHTTPError, BaseResponse
+
+from .schemas import AddUser, User
 
 router = APIRouter(
     prefix="/user",
-    tags=["user"],
+    tags=["User"],
     responses={404: {"description": "Not found"}},
 )
 

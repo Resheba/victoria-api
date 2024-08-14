@@ -3,7 +3,8 @@ from collections.abc import Generator
 import pytest
 from fastapi.testclient import TestClient
 
-from src.app.schemas import AddProject, Project
+from src.routers.project.router import router
+from src.routers.project.schemas import AddProject, Project
 
 from .conftest import ClientPrepareTest
 
@@ -24,9 +25,9 @@ class TestProjectRouter(PrepareTest):
     test_add_project_data: AddProject = AddProject(name="test", description="test")
 
     @pytest.mark.usefixtures("_project_pull")
-    def test_get_project(self, client: TestClient) -> None:
-        response = client.get("/project")
-        assert response.status_code == TestProjectRouter.expected_status_code
+    def test_get_project_v1(self, client: TestClient) -> None:
+        response = client.get("v1" + router.prefix)
+        assert response.status_code == self.expected_status_code
         assert (
             response.json().get("data")
             == [project.model_dump() for project in self.state.project_list]
@@ -34,13 +35,12 @@ class TestProjectRouter(PrepareTest):
             else []
         )
 
-    @staticmethod
-    def test_add_project(client: TestClient) -> None:
+    def test_add_project_v1(self, client: TestClient) -> None:
         response = client.post(
-            "/project",
-            json=TestProjectRouter.test_add_project_data.model_dump(),
+            "v1" + router.prefix,
+            json=self.test_add_project_data.model_dump(),
         )
-        assert response.status_code == TestProjectRouter.expected_status_code
+        assert response.status_code == self.expected_status_code
         assert (
             response.json().get("data")
             == Project(id=1, **TestProjectRouter.test_add_project_data.model_dump()).model_dump()

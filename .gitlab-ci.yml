@@ -51,7 +51,7 @@ api_build:
   script:
     - python -c "from pathlib import Path; from src import __version__; Path('src/__init__.py').write_text(f'__version__ = {__version__[:2] + (__version__[2] + 1,)}\n')"
     - git commit -am "Bump version" --author="dev <dev@hochnadel.ru>"
-    - git push
+    - git push origin main
     - docker build -t $CI_PROJECT_NAMESPACE -f Dockerfile .
     - docker tag $CI_PROJECT_NAMESPACE $IMAGE
     - docker push $IMAGE

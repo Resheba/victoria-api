@@ -19,7 +19,11 @@ async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
 
 
 def app() -> FastAPI:
+    from . import __version__ as version
+
     app: FastAPI = FastAPI(
+        title="Vicrotia API",
+        version=".".join(str(v) for v in version),
         root_path="/api",
         lifespan=lifespan,
         exception_handlers={Exception: BaseHTTPError.base_exception_handler},

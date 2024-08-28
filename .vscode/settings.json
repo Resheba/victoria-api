@@ -25,8 +25,4 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "mypy.dmypyExecutable": "${workspaceFolder}/.venv/Scripts/dmypy.exe",
-    "sonarlint.connectedMode.project": {
-        "connectionId": "sw-sonarqube",
-        "projectKey": "getdocs-svc-pmi-generate"
-    },
 }
